@@ -17,6 +17,7 @@ local nerveux_config = require "nerveux.config"
 -- @field opts.use_cache (boolean) use the --cached switch
 -- @field opts.neuron_dir (string) the root directory of the zettelkasten
 -- @field opts.neuron_cmd (string) the command to run to execute neuron
+-- @field opts.go_key (string) the keybinding to go to a selected zettel
 -- @param callback The function to call when the results are ready
 --        In the form callback(error, table_of_results)
 function M.get_all_zettels(opts, callback)
@@ -106,7 +107,7 @@ function M.search_zettel(opts)
   }, function(_, results)
     pickers.new({
       attach_mappings = function(_, map)
-        map("i", "<tab>", function(prompt_bufnr)
+        map("i", "<C-l>", function(prompt_bufnr)
           local entry = actions.get_selected_entry()
           actions.close(prompt_bufnr)
           vim.api.nvim_put({"[[" .. entry.ID .. "]]"}, "c", true, true)
